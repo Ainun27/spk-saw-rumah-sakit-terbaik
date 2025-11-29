@@ -1,0 +1,1 @@
+### Ini adalah modifikasih dari https://github.com/alvinchristiand23/spk-saw, modifikasi dilakukan untuk memenuhi tugas matakuliah sistem pendukung keputusan. tanpa mengurangi rasa hormat, saya mengucapkan terimakasih kepada developer (ka alvin)
