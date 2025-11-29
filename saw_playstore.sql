@@ -27,135 +27,41 @@ SET time_zone = "+00:00";
 -- Table structure for table `saw_aplikasi`
 --
 
-CREATE TABLE `saw_aplikasi` (
-  `nama` varchar(100) NOT NULL,
-  `pengembang` varchar(100) NOT NULL,
-  `kategori` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+-- 1. Buat Database
+CREATE DATABASE saw_playstore;
 
---
--- Dumping data for table `saw_aplikasi`
---
+-- 2. Gunakan Database
+USE saw_playstore;
 
-INSERT INTO `saw_aplikasi` (`nama`, `pengembang`, `kategori`) VALUES
-('Clash Of Clans', 'Supercell', 'Permainan'),
-('Peduli Lindungi', 'Ministry of Health Republic Indonesia', 'Kesehatan'),
-('Tiktok', 'Tiktok Pte. Ltd.', 'Sosial');
+-- 3. Tabel Alternatif (Data Rumah Sakit)
+CREATE TABLE saw_rumahsakit (
+  nama VARCHAR(100) PRIMARY KEY,
+  alamat VARCHAR(255) NOT NULL,
+  tipe VARCHAR(50) NOT NULL
+);
 
--- --------------------------------------------------------
+-- 4. Tabel Kriteria (Bobot Kriteria)
+CREATE TABLE saw_kriteria (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  fasilitas DECIMAL(5,2) NOT NULL,
+  dokter DECIMAL(5,2) NOT NULL,
+  jarak DECIMAL(5,2) NOT NULL,
+  biaya DECIMAL(5,2) NOT NULL,
+  pelayanan DECIMAL(5,2) NOT NULL,
+  akreditasi DECIMAL(5,2) NOT NULL
+);
 
---
--- Table structure for table `saw_kriteria`
---
+-- 5. Tabel Penilaian (Nilai Setiap RS untuk Tiap Kriteria)
+CREATE TABLE saw_penilaian (
+  nama VARCHAR(100) PRIMARY KEY,
+  fasilitas INT NOT NULL,
+  dokter INT NOT NULL,
+  jarak INT NOT NULL,
+  biaya INT NOT NULL,
+  pelayanan INT NOT NULL,
+  akreditasi INT NOT NULL,
+  FOREIGN KEY (nama) REFERENCES saw_rumahsakit(nama) ON DELETE CASCADE
+);
 
-CREATE TABLE `saw_kriteria` (
-  `no` int(11) NOT NULL,
-  `peringkat` float NOT NULL,
-  `ukuran` float NOT NULL,
-  `unduhan` float NOT NULL,
-  `aktif` float NOT NULL,
-  `manfaat` float NOT NULL,
-  `kelebihan` float NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `saw_kriteria`
---
 
-INSERT INTO `saw_kriteria` (`no`, `peringkat`, `ukuran`, `unduhan`, `aktif`, `manfaat`, `kelebihan`) VALUES
-(7, 0.24, 0.18, 0.18, 0.12, 0.18, 0.12);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `saw_penilaian`
---
-
-CREATE TABLE `saw_penilaian` (
-  `nama` varchar(100) NOT NULL,
-  `peringkat` float NOT NULL,
-  `ukuran` float NOT NULL,
-  `unduhan` float NOT NULL,
-  `aktif` float NOT NULL,
-  `manfaat` float NOT NULL,
-  `kelebihan` float NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `saw_penilaian`
---
-
-INSERT INTO `saw_penilaian` (`nama`, `peringkat`, `ukuran`, `unduhan`, `aktif`, `manfaat`, `kelebihan`) VALUES
-('Clash Of Clans', 4.3, 2, 5, 4, 3, 3),
-('Peduli Lindungi', 3.6, 2, 4, 4, 4, 3),
-('Tiktok', 4.5, 3, 3, 3, 2, 2);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `saw_perankingan`
---
-
-CREATE TABLE `saw_perankingan` (
-  `no` int(11) NOT NULL,
-  `nama` varchar(100) NOT NULL,
-  `nilai_akhir` float NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `saw_perankingan`
---
-
-INSERT INTO `saw_perankingan` (`no`, `nama`, `nilai_akhir`) VALUES
-(1, 'Clash Of Clans', 0.964),
-(2, 'Peduli Lindungi', 0.936),
-(3, 'Tiktok', 0.728);
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `saw_aplikasi`
---
-ALTER TABLE `saw_aplikasi`
-  ADD PRIMARY KEY (`nama`);
-
---
--- Indexes for table `saw_kriteria`
---
-ALTER TABLE `saw_kriteria`
-  ADD PRIMARY KEY (`no`);
-
---
--- Indexes for table `saw_penilaian`
---
-ALTER TABLE `saw_penilaian`
-  ADD PRIMARY KEY (`nama`);
-
---
--- Indexes for table `saw_perankingan`
---
-ALTER TABLE `saw_perankingan`
-  ADD PRIMARY KEY (`no`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `saw_kriteria`
---
-ALTER TABLE `saw_kriteria`
-  MODIFY `no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT for table `saw_perankingan`
---
-ALTER TABLE `saw_perankingan`
-  MODIFY `no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
